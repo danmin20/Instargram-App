@@ -1,1 +1,1 @@
-# Instargram iOS $ Android App
+# Instargram App
