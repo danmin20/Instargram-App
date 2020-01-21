@@ -5,13 +5,19 @@ import Confirm from "../screens/Auth/Confirm";
 import Login from "../screens/Auth/Login";
 import AuthHome from "../screens/Auth/AuthHome";
 
-const AuthNavigaion = createStackNavigator({
-  Signup,
-  AuthHome,
-  Login,
-  Confirm
-}, {
+const AuthNavigaion = createStackNavigator(
+  {
+    Signup,
+    AuthHome,
+    Login,
+    Confirm
+  },
+  {
+    navigationOptions: {
+      cardStyle: { backgroundColor: "white" }
+    },
     headerMode: "none"
-});
+  }
+);
 
 export default createAppContainer(AuthNavigaion);

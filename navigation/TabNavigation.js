@@ -21,7 +21,6 @@ const stackFactory = (initialRoute, customConfig) =>
       screen: initialRoute,
       navigationOptions: {
         ...customConfig,
-        headerStyle: { backgroundColor: "#FAFAFA" },
         cardStyle: { backgroundColor: "white" }
       }
     }
@@ -40,7 +39,7 @@ export default createBottomTabNavigator(
         headerRight: () => <MessagesLink />,
         headerTitle: () => (
           <Image
-            style={{ height: 37, marginTop: 10, marginLeft: -190 }}
+            style={{ height: 30, marginTop: 5, marginLeft: -150 }}
             resizeMode="contain"
             source={require("../assets/logo.png")}
           />
@@ -98,7 +97,7 @@ export default createBottomTabNavigator(
     headerMode: "none",
     tabBarOptions: {
       showLabel: false,
-      tabStyle: { backgroundColor: "#FAFAFA" }
+      style: { backgroundColor: "#FAFAFA" }
     }
   }
 );

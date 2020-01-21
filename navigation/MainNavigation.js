@@ -11,6 +11,9 @@ const MainNavigation = createStackNavigator(
     MessageNavigation
   },
   {
+    defaultNavigationOptions: {
+      cardStyle: { backgroundColor: "white" }
+    },
     headerMode: "none"
   }
 );

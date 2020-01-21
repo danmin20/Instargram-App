@@ -12,7 +12,6 @@ const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
-  background-color: white;
 `;
 
 export default ({ navigation }) => {

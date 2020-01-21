@@ -20,6 +20,9 @@ export default createStackNavigator(
     UploadPhoto
   },
   {
+    defaultNavigationOptions: {
+      cardStyle: { backgroundColor: "white" }
+    },
     headerMode: "none"
   }
 );
