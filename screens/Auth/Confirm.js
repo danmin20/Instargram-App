@@ -54,7 +54,7 @@ export default ({ navigation }) => {
           {...confirmInput}
           placeholder="Secret"
           returnKeyType="send"
-          onEndEditing={handleConfirm}
+          onSubmitEditing={handleConfirm}
           autoCorrect={false}
         />
         <AuthButton loading={loading} onPress={handleConfirm} text="Confirm" />

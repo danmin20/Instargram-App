@@ -9,7 +9,7 @@ const Container = styled.View`
   background-color: ${props => props.theme.blueColor};
   padding: 10px;
   border-radius: 4px;
-  width: ${constants.width / 2}px;
+  width: ${constants.width / 1.7}px;
 `;
 
 const Text = styled.Text`

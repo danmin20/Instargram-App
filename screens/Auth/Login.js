@@ -16,7 +16,7 @@ const View = styled.View`
 `;
 
 export default ({ navigation }) => {
-  const emailInput = useInput("");
+  const emailInput = useInput(navigation.getParam("email", ""));
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { email: emailInput.value }
@@ -56,7 +56,7 @@ export default ({ navigation }) => {
           placeholder="Email"
           keyboardType="email-address"
           returnKeyType="send"
-          onEndEditing={handleLogin}
+          onSubmitEditing={handleLogin}
           autoCorrect={false}
         />
         <AuthButton loading={loading} onPress={handleLogin} text="Log In" />

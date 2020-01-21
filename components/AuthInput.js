@@ -8,11 +8,11 @@ const Container = styled.View`
 `;
 
 const TextInput = styled.TextInput`
-  width: ${constants.width / 2}px;
+  width: ${constants.width / 1.7}px;
   padding: 5px 10px;
   border-radius: 4px;
   background-color: ${props => props.theme.greyColor};
-  border: 2px solid ${props => props.theme.darkGreyColor};
+  border: 2px solid ${props => props.theme.lightGreyColor};
 `;
 
 const AuthInput = ({
