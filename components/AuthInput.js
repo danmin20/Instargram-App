@@ -41,7 +41,7 @@ const AuthInput = ({
 
 AuthInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   keyboardType: PropTypes.oneOf([
     "default",
     "number-pad",
