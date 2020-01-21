@@ -11,7 +11,7 @@ const View = styled.View`
 `;
 
 const Image = styled.Image`
-  width: ${constants.width / 2};
+  width: ${constants.width / 2}px;
   margin-bottom: -45px;
 `;
 
