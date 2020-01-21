@@ -6,8 +6,9 @@ import AuthInput from "../../components/AuthInput";
 import useInput from "../../hooks/useInput";
 import { Alert } from "react-native";
 import { useMutation } from "react-apollo-hooks";
-import { LOG_IN, CREATE_ACCOUNT } from "./AuthQueries";
+import { CREATE_ACCOUNT } from "./AuthQueries";
 import * as Facebook from "expo-facebook";
+import * as Google from "expo-google-app-auth";
 
 const View = styled.View`
   justify-content: center;
@@ -16,7 +17,7 @@ const View = styled.View`
   background-color: white;
 `;
 
-const FBContainer = styled.View`
+const ExternalLogin = styled.View`
   margin-top: 25px;
   padding-top: 25px;
   border-top-width: 1px;
@@ -90,6 +91,33 @@ export default ({ navigation }) => {
       alert(`Facebook Login Error: ${message}`);
     }
   };
+  const googleLogin = async () => {
+    setLoading(true);
+    const androidId =
+      "872191848705-g1bfghft1di0304onr7nvqh12rp2iulc.apps.googleusercontent.com";
+    const iosId =
+      "872191848705-k9mj6lavhj95m18s3p4eoq9vgnl2qeh5.apps.googleusercontent.com";
+    try {
+      const result = await Google.logInAsync({
+        androidClientId: androidId,
+        iosClientId: iosId,
+        scopes: ["profile", "email"]
+      });
+      if (result.type === "success") {
+        const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+          headers: { Authorization: `Bearer ${result.accessToken}` }
+        });
+        const { email, given_name, family_name } = await user.json();
+        updateFormData(email, given_name, family_name);
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    } finally {
+      setLoading(false);
+    }
+  };
   const updateFormData = (email, firstName, lastName) => {
     emailInput.setValue(email);
     fNameInput.setValue(firstName);
@@ -125,14 +153,20 @@ export default ({ navigation }) => {
           autoCorrect={false}
         />
         <AuthButton loading={loading} onPress={handleSignup} text="Sign up" />
-        <FBContainer>
+        <ExternalLogin>
           <AuthButton
             bgColor={"#2D4DA7"}
             loading={false}
             onPress={fbLogin}
             text="Connect Facebook"
           />
-        </FBContainer>
+          <AuthButton
+            bgColor={"#EE1922"}
+            loading={false}
+            onPress={googleLogin}
+            text="Connect Google"
+          />
+        </ExternalLogin>
       </View>
     </TouchableWithoutFeedback>
   );
