@@ -53,7 +53,6 @@ export default createBottomTabNavigator(
     },
     Search: {
       screen: stackFactory(Search, {
-        title: "Search",
         headerTitleAlign: "center"
       }),
       navigationOptions: {
@@ -94,7 +93,7 @@ export default createBottomTabNavigator(
     }
   },
   {
-    headerMode: "none",
+    initialRouteName: "Search",
     tabBarOptions: {
       showLabel: false,
       style: { backgroundColor: "#FAFAFA" }
