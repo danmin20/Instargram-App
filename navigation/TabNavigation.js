@@ -5,6 +5,7 @@ import Home from "../screens/Tab/Home";
 import Search from "../screens/Tab/Search";
 import Notifications from "../screens/Tab/Notifications";
 import Profile from "../screens/Tab/Profile";
+import Detail from "../screens/Tab/Detail";
 import { View } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import MessagesLink from "../components/MessagesLink";
@@ -16,15 +17,23 @@ const Icon = styled.View`
 `;
 
 const stackFactory = (initialRoute, customConfig) =>
-  createStackNavigator({
-    initialRoute: {
-      screen: initialRoute,
-      navigationOptions: {
-        ...customConfig,
-        cardStyle: { backgroundColor: "white" }
+  createStackNavigator(
+    {
+      initialRoute: {
+        screen: initialRoute,
+        navigationOptions: {
+          ...customConfig
+        }
+      },
+      Detail
+    },
+    {
+      defaultNavigationOptions: {
+        cardStyle: { backgroundColor: "white" },
+        headerTitle: () => {"none"}
       }
     }
-  });
+  );
 
 export default createBottomTabNavigator(
   {
@@ -52,9 +61,7 @@ export default createBottomTabNavigator(
       }
     },
     Search: {
-      screen: stackFactory(Search, {
-        headerTitleAlign: "center"
-      }),
+      screen: stackFactory(Search),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon name={focused ? "magnify-close" : "magnify"} />

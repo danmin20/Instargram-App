@@ -11,7 +11,6 @@ const Search = styled.View`
 `;
 const Icon = styled.View`
   margin-top: 8px;
-  margin-left: 10px;
 `;
 
 const SearchBar = ({ onChange, value, onSubmit }) => (

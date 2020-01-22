@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  SimpleLineIcons,
+  MaterialCommunityIcons
+} from "@expo/vector-icons";
 import { AppLoading } from "expo";
 import { AsyncStorage } from "react-native";
 import * as Font from "expo-font";
@@ -21,7 +25,9 @@ export default function App() {
   const preLoad = async () => {
     try {
       await Font.loadAsync({
-        ...Ionicons.font
+        ...Ionicons.font,
+        ...SimpleLineIcons.font,
+        ...MaterialCommunityIcons.font
       });
       await Asset.loadAsync([require("./assets/logo.png")]);
       const cache = new InMemoryCache();
