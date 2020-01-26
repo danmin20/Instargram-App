@@ -42,16 +42,14 @@ const PhotoTabs = createMaterialTopTabNavigator(
 export default createStackNavigator(
   {
     Tabs: {
-      screen: PhotoTabs,
-      navigationOptions: {
-        title: "갤러리"
-      }
+      screen: PhotoTabs
     },
     UploadPhoto
   },
   {
     defaultNavigationOptions: {
-      cardStyle: { backgroundColor: "white" }
+      cardStyle: { backgroundColor: "white" },
+      title:""
     }
   }
 );
