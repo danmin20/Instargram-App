@@ -7,7 +7,7 @@ import { ScrollView, RefreshControl } from "react-native";
 import Post from "../../components/Post";
 import { POST_FRAGMENT } from "../../fragments";
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   {
     seeFeed {
       ...PostParts
@@ -15,13 +15,6 @@ const FEED_QUERY = gql`
   }
   ${POST_FRAGMENT}
 `;
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-`;
-
-const Text = styled.Text``;
 
 export default () => {
   const [refreshing, setRefreshing] = useState(false);

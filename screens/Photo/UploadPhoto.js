@@ -5,11 +5,21 @@ import useInput from "../../hooks/useInput";
 import styles from "../../styles";
 import { ActivityIndicator, Image, TouchableOpacity } from "react-native";
 import constants from "../../constants";
-import Loader from "../../components/Loader";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery, useMutation } from "react-apollo-hooks";
 import { ME } from "../Tab/Profile";
 import NavIcon from "../../components/NavIcon";
 import options from "../../apollo";
+import { gql } from "apollo-boost";
+import { FEED_QUERY } from "../Tab/Home";
+import { GET_USER } from "../Tab/UserDetail";
+
+const UPLOAD = gql`
+  mutation upload($caption: String, $files: [String!]!, $location: String) {
+    upload(caption: $caption, files: $files, location: $location) {
+      id
+    }
+  }
+`;
 
 const View = styled.View`
   justify-content: flex-start;
@@ -68,7 +78,6 @@ const Setting = styled.Text`
 
 export default ({ navigation }) => {
   const [loading, setIsLoading] = useState(false);
-  const [fileUrl, setFileUrl] = useState("");
   const [facebook, setFacebook] = useState(false);
   const [twitter, setTwitter] = useState(false);
   const [tumbler, setTumbler] = useState(false);
@@ -76,6 +85,9 @@ export default ({ navigation }) => {
   const photo = navigation.getParam("photo");
   const captionInput = useInput("");
   const locationInput = useInput("");
+  const [uploadMutation] = useMutation(UPLOAD, {
+    refetchQueries: () => [{ query: [FEED_QUERY, GET_USER, ME] }]
+  });
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("file", {
@@ -92,8 +104,18 @@ export default ({ navigation }) => {
           "content-type": "multipart/form-data"
         }
       });
-      console.log(location);
-      setFileUrl(location);
+      const {
+        data: { upload }
+      } = await uploadMutation({
+        variables: {
+          caption: captionInput.value,
+          location: locationInput.value,
+          files: [location]
+        }
+      });
+      if (upload.id) {
+        navigation.navigate("TabNavigation");
+      }
     } catch (e) {
       console.log(e);
     } finally {

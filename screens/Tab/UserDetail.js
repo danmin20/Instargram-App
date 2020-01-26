@@ -6,7 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import Loader from "../../components/Loader";
 import UserProfile from "../../components/UserProfile";
 
-const GET_USER = gql`
+export const GET_USER = gql`
   query seeUser($username: String!) {
     seeUser(username: $username) {
       ...UserParts
