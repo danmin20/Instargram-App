@@ -106,7 +106,7 @@ const UserProfile = ({
         <TouchableOpacity onPress={toggleGrid}>
           <Button>
             <NavIcon
-              color={isGrid ? styles.black : styles.darkGreyColor}
+              color={isGrid ? styles.blackColor : styles.darkGreyColor}
               size={32}
               name={"grid"}
             />
@@ -115,7 +115,7 @@ const UserProfile = ({
         <TouchableOpacity onPress={toggleGrid}>
           <Button>
             <NavIcon
-              color={isGrid ? styles.black : styles.darkGreyColor}
+              color={isGrid ? styles.darkGreyColor : styles.blackColor}
               size={32}
               name={"comment-account-outline"}
             />

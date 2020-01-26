@@ -9,6 +9,8 @@ import SquarePhoto from "../../../components/SquarePhoto";
 import SquareUser from "../../../components/SquareUser";
 import Swiper from "react-native-swiper";
 import constants from "../../../constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import styles from "../../../styles";
 
 const SEARCH = gql`
   query search($term: String!) {
@@ -32,21 +34,32 @@ const SEARCH = gql`
   }
 `;
 
-const PostDisplay = styled.View`
+const UserDisplay = styled.View`
   margin-bottom: 20px;
 `;
-const UserDisplay = styled.View`
+const PostDisplay = styled.View`
   flex-direction: row;
-`;
-const Header = styled.View`
-  padding: 15px 0px;
-  border: 2px solid white;
-  border-bottom-color: ${props => props.theme.lightGreyColor};
-  align-items: center;
+  flex-wrap: wrap;
+  margin-top: -20px;
 `;
 const Text = styled.Text`
-  font-weight:bold;
+  font-weight: bold;
   font-size: 15px;
+`;
+const GreyText = styled.Text`
+  font-weight: bold;
+  font-size: 15px;
+  color: ${styles.darkGreyColor};
+`;
+const ButtonContainer = styled.View`
+  padding: 13px 0;
+  border: 1px solid ${styles.lightGreyColor};
+  flex-direction: row;
+  background-color: #fafafa;
+`;
+const Button = styled.View`
+  width: ${constants.width / 2}px;
+  align-items: center;
 `;
 
 const SearchPresenter = ({ term, shouldFetch }) => {
@@ -66,6 +79,9 @@ const SearchPresenter = ({ term, shouldFetch }) => {
       setRefreshing(false);
     }
   };
+  const [isPost, setIsPost] = useState(true);
+  const toggleSearch = () => setIsPost(i => !i);
+  console.log(data);
   return (
     <ScrollView
       refreshControl={
@@ -73,34 +89,42 @@ const SearchPresenter = ({ term, shouldFetch }) => {
       }
     >
       {loading && <Loader />}
-      <Swiper style={{ height: constants.height * 0.75 }} loop={false}>
+      {!loading && (
         <>
-          <Header>
-            <Text>계정</Text>
-          </Header>
-          <PostDisplay>
-            {!loading &&
-              data &&
-              data.searchUser &&
-              data.searchUser.map(user => (
-                <SquareUser key={user.id} term={term} {...user} />
-              ))}
-          </PostDisplay>
-        </>
-        <>
-          <Header>
-            <Text>게시물</Text>
-          </Header>
+          <ButtonContainer>
+            <TouchableOpacity onPress={toggleSearch}>
+              <Button>
+                {isPost ? <Text>계정</Text> : <GreyText>계정</GreyText>}
+              </Button>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toggleSearch}>
+              <Button>
+                {isPost ? <GreyText>게시물</GreyText> : <Text>게시물</Text>}
+              </Button>
+            </TouchableOpacity>
+          </ButtonContainer>
           <UserDisplay>
             {!loading &&
               data &&
-              data.searchPost &&
-              data.searchPost.map(post => (
-                <SquarePhoto key={post.id} term={term} {...post} />
-              ))}
+              data.searchUser &&
+              data.searchUser.map(user =>
+                isPost ? (
+                  <SquareUser key={user.id} term={term} {...user} />
+                ) : null
+              )}
           </UserDisplay>
+          <PostDisplay>
+            {!loading &&
+              data &&
+              data.searchPost &&
+              data.searchPost.map(post =>
+                isPost ? null : (
+                  <SquarePhoto key={post.id} term={term} {...post} />
+                )
+              )}
+          </PostDisplay>
         </>
-      </Swiper>
+      )}
     </ScrollView>
   );
 };
