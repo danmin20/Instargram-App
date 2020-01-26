@@ -28,7 +28,7 @@ const PhotoTabs = createMaterialTopTabNavigator(
         backgroundColor: styles.blackColor
       },
       style: {
-        backgroundColor: "#FAFAFA"
+        backgroundColor: styles.greyColor
       },
       labelStyle: {
         color: styles.blackColor,

@@ -55,7 +55,7 @@ const ButtonContainer = styled.View`
   padding: 13px 0;
   border: 1px solid ${styles.lightGreyColor};
   flex-direction: row;
-  background-color: #fafafa;
+  background-color: ${styles.greyColor};
 `;
 const Button = styled.View`
   width: ${constants.width / 2}px;

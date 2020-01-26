@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, View, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, AsyncStorage } from "react-native";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import styles from "../styles";
@@ -8,8 +8,13 @@ import SquarePhoto from "./SquarePhoto";
 import Post from "./Post";
 import NavIcon from "./NavIcon";
 
+const View = styled.View`
+  background-color: ${styles.greyColor};
+`;
+
 const ProfileHeader = styled.View`
   padding: 20px;
+  padding-bottom: 10px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -50,7 +55,7 @@ const ButtonContainer = styled.View`
   border: 1px solid ${styles.lightGreyColor};
   flex-direction: row;
   margin-top: 20px;
-  background-color: #fafafa;
+  background-color: ${styles.greyColor};
 `;
 
 const Button = styled.View`
@@ -58,10 +63,29 @@ const Button = styled.View`
   align-items: center;
 `;
 
+const Edit = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+const EditButton = styled.View`
+  margin-top: 20px;
+  padding: 6px;
+  flex-direction: row;
+  width: 95%;
+  border: 1px solid ${styles.moderateGreyColor};
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+`;
+
 const SquareContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 `;
+
+const Text = styled.Text``;
 
 const UserProfile = ({
   avatar,
@@ -70,15 +94,26 @@ const UserProfile = ({
   followingCount,
   bio,
   fullName,
-  posts
+  posts,
+  isSelf,
+  navigation
 }) => {
   const [isGrid, setIsGrid] = useState(true);
+  const logout = async () => {
+    await AsyncStorage.clear();
+    navigation.navigate("AuthNavigation");
+  };
   const toggleGrid = () => setIsGrid(i => !i);
   return (
     <View>
       <ProfileHeader>
         <Image
-          style={{ height: 100, width: 100, borderRadius: 50, marginRight: 20 }}
+          style={{
+            height: 100,
+            width: 100,
+            borderRadius: 50,
+            marginRight: 20
+          }}
           source={{ uri: avatar }}
         />
         <HeaderColumn>
@@ -102,6 +137,18 @@ const UserProfile = ({
         <Name>{fullName}</Name>
         <Bio>{bio}</Bio>
       </ProfileMeta>
+      {isSelf ? (
+        <Edit>
+          <EditButton>
+            <TouchableOpacity>
+              <Text>프로필수정</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={logout}>
+              <Text>로그아웃</Text>
+            </TouchableOpacity>
+          </EditButton>
+        </Edit>
+      ) : null}
       <ButtonContainer>
         <TouchableOpacity onPress={toggleGrid}>
           <Button>

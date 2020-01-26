@@ -12,6 +12,7 @@ import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
 import styled from "styled-components";
 import UserDetail from "../screens/Tab/UserDetail";
+import styles from "../styles";
 
 const Icon = styled.View`
   margin-left: 20px;
@@ -116,7 +117,7 @@ export default createBottomTabNavigator(
   {
     tabBarOptions: {
       showLabel: false,
-      style: { backgroundColor: "#FAFAFA" }
+      style: { backgroundColor: styles.greyColor }
     }
   }
 );

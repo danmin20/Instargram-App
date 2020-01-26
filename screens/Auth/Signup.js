@@ -20,7 +20,7 @@ const ExternalLogin = styled.View`
   margin-top: 25px;
   padding-top: 25px;
   border-top-width: 1px;
-  border-color: ${props => props.theme.lightGreyColor};
+  border-color: ${props => props.theme.moderateGreyColor};
   border-style: solid;
 `;
 
@@ -160,7 +160,7 @@ export default ({ navigation }) => {
             text="Connect Facebook"
           />
           <AuthButton
-            bgColor={"#EE1922"}
+            bgColor={"#e44134"}
             loading={false}
             onPress={googleLogin}
             text="Connect Google"
