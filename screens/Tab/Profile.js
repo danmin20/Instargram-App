@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import { ScrollView } from "react-native";
 import { gql } from "apollo-boost";
 import { USER_FRAGMENT } from "../../fragments";
-import { ScrollView } from "react-native";
 import Loader from "../../components/Loader";
 import { useQuery } from "react-apollo-hooks";
+import UserProfile from "../../components/UserProfile";
 
-const ME = gql`
+export const ME = gql`
   {
     me {
       ...UserParts
@@ -15,26 +15,11 @@ const ME = gql`
   ${USER_FRAGMENT}
 `;
 
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-`;
-
-const Text = styled.Text``;
-
-export default class extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: () => <Text>{navigation.getParam("username", "")}</Text>
-  });
-  constructor(props) {
-    super(props);
-    const { navigation } = props;
-    const { loading, data } = useQuery(ME);
-    this.state = { username: data.username };
-    navigation.setParams({ username: this.state.username });
-  }
-  render() {
-    return <ScrollView>{loading ? <Loader /> : null}</ScrollView>;
-  }
-}
+export default ({ navigation }) => {
+  const { loading, data } = useQuery(ME);
+  return (
+    <ScrollView>
+      {loading ? <Loader /> : data && data.me && <UserProfile {...data.me} />}
+    </ScrollView>
+  );
+};

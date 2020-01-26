@@ -19,7 +19,7 @@ const Border = styled.Text`
   font-weight: bold;
 `;
 const Text = styled.Text`
-font-weight: bold;
+  font-weight: bold;
   opacity: 0.5;
 `;
 
@@ -31,11 +31,13 @@ const SquareUser = ({
   fullName,
   isFollowing
 }) => (
-  <TouchableOpacity onPress={() => navigation.navigate("Profile", { id })}>
+  <TouchableOpacity
+    onPress={() => navigation.navigate("UserDetail", { username })}
+  >
     <Container>
       <Image
         source={{ uri: avatar }}
-        style={{ width: 55, height: 55, borderRadius: 25 }}
+        style={{ width: 55, height: 55, borderRadius: 27.5 }}
       />
       <Info>
         <Border>{username}</Border>

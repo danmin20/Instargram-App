@@ -16,9 +16,6 @@ const POST_DETAIL = gql`
   ${POST_FRAGMENT}
 `;
 
-const View = styled.View``;
-const Text = styled.Text``;
-
 export default ({ navigation }) => {
   const { loading, data } = useQuery(POST_DETAIL, {
     variables: { id: navigation.getParam("id") }

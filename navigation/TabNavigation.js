@@ -11,6 +11,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
 import styled from "styled-components";
+import UserDetail from "../screens/Tab/UserDetail";
 
 const Icon = styled.View`
   margin-left: 20px;
@@ -25,12 +26,25 @@ const stackFactory = (initialRoute, customConfig) =>
           ...customConfig
         }
       },
-      Detail
+      Detail: {
+        screen: Detail,
+        navigationOptions: {
+          headerTitle: () => {
+            "none";
+          }
+        }
+      },
+      UserDetail: {
+        screen: UserDetail,
+        navigationOptions: ({navigation})=>({
+          title: navigation.getParam("username")
+        })
+      }
     },
     {
       defaultNavigationOptions: {
-        cardStyle: { backgroundColor: "white" },
-        headerTitle: () => {"none"}
+        headerBackTitle: null,
+        cardStyle: { backgroundColor: "white" }
       }
     }
   );
@@ -90,7 +104,7 @@ export default createBottomTabNavigator(
     Profile: {
       screen: stackFactory(Profile, {
         title: "Profile",
-        headerTitleAlign: "center"
+        headerTitleAlign: "left"
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
