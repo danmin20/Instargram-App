@@ -63,7 +63,7 @@ export default createBottomTabNavigator(
         headerRight: () => <MessagesLink />,
         headerTitle: () => (
           <Image
-            style={{ height: 30, marginTop: 5, marginLeft: -100 }}
+            style={{ height: 30, marginTop: 5, marginLeft: -150 }}
             resizeMode="contain"
             source={require("../assets/logo.png")}
           />

@@ -7,6 +7,7 @@ import constants from "../constants";
 import SquarePhoto from "./SquarePhoto";
 import Post from "./Post";
 import NavIcon from "./NavIcon";
+import { useLogOut } from "../AuthContext";
 
 const View = styled.View`
   background-color: ${styles.greyColor};
@@ -99,10 +100,7 @@ const UserProfile = ({
   navigation
 }) => {
   const [isGrid, setIsGrid] = useState(true);
-  const logout = async () => {
-    await AsyncStorage.clear();
-    navigation.navigate("AuthNavigation");
-  };
+  const logout = useLogOut();
   const toggleGrid = () => setIsGrid(i => !i);
   return (
     <View>
