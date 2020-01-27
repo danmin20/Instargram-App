@@ -1,6 +1,7 @@
 # Instargram App
 App for Instagram clone<br>
 [Instargram Back-end](https://github.com/danmin20/Instargram-Backend)
+[Instargram Front-end](https://github.com/danmin20/Instargram-Frontend)
 
 ## App
 Name : "Instargram"
@@ -23,7 +24,7 @@ Netlify<br>
 <div>
 <img width="250" src="https://user-images.githubusercontent.com/50590192/73177831-57d6b000-4153-11ea-83bd-e0c3b5a10947.png">
 <img width="250" src="https://user-images.githubusercontent.com/50590192/73177855-64f39f00-4153-11ea-8d9a-d8b8d4941c96.png">
-<img width="250" src="https://user-images.githubusercontent.com/50590192/73177909-82c10400-4153-11ea-9c5e-665aae248707.png">
+<img width="250" src="https://user-images.githubusercontent.com/50590192/73179160-201d3780-4156-11ea-86cf-3ebdbf769322.png">
 <img width="250" src="https://user-images.githubusercontent.com/50590192/73178714-2d85f200-4155-11ea-8e2e-51ac72c992a2.png">
 <img width="250" src="https://user-images.githubusercontent.com/50590192/73178135-febb4c00-4153-11ea-9dc3-6b1400ade431.png">
 <img width="250" src="https://user-images.githubusercontent.com/50590192/73178737-3b3b7780-4155-11ea-982c-9fa6a61c0845.png">
