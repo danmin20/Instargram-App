@@ -1,6 +1,6 @@
 # Instargram App
 App for Instagram clone<br>
-[Instargram Back-end](https://github.com/danmin20/Instargram-Backend)
+[Instargram Back-end](https://github.com/danmin20/Instargram-Backend)<br>
 [Instargram Front-end](https://github.com/danmin20/Instargram-Frontend)
 
 ## App
