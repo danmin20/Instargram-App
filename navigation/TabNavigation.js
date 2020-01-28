@@ -13,6 +13,8 @@ import NavIcon from "../components/NavIcon";
 import styled from "styled-components";
 import UserDetail from "../screens/Tab/UserDetail";
 import styles from "../styles";
+import UserProfile from "../components/UserProfile";
+import EditProfile from "../screens/Tab/EditProfile";
 
 const Icon = styled.View`
   margin-left: 20px;
@@ -37,9 +39,15 @@ const stackFactory = (initialRoute, customConfig) =>
       },
       UserDetail: {
         screen: UserDetail,
-        navigationOptions: ({navigation})=>({
+        navigationOptions: ({ navigation }) => ({
           title: navigation.getParam("username")
         })
+      },
+      EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+          title: "프로필 수정"
+        }
       }
     },
     {

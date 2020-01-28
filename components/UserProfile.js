@@ -8,6 +8,7 @@ import SquarePhoto from "./SquarePhoto";
 import Post from "./Post";
 import NavIcon from "./NavIcon";
 import { useLogOut } from "../AuthContext";
+import { withNavigation } from "react-navigation";
 
 const View = styled.View`
   background-color: ${styles.greyColor};
@@ -138,7 +139,9 @@ const UserProfile = ({
       {isSelf ? (
         <Edit>
           <EditButton>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("EditProfile")}
+            >
               <Text>프로필수정</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={logout}>
@@ -219,4 +222,4 @@ UserProfile.propTypes = {
     })
   )
 };
-export default UserProfile;
+export default withNavigation(UserProfile);
