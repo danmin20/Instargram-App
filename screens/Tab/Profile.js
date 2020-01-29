@@ -18,6 +18,7 @@ export const ME = gql`
 export default ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const { loading, data, refetch } = useQuery(ME);
+
   const refresh = async () => {
     try {
       setRefreshing(true);

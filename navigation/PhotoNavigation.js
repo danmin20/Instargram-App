@@ -4,7 +4,6 @@ import TakePhoto from "../screens/Photo/TakePhoto";
 import UploadPhoto from "../screens/Photo/UploadPhoto";
 import { createStackNavigator } from "react-navigation-stack";
 import styles from "../styles";
-import { BorderlessButton } from "react-native-gesture-handler";
 
 const PhotoTabs = createMaterialTopTabNavigator(
   {
