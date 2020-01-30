@@ -5,7 +5,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import { gql } from "apollo-boost";
 import useInput from "../../hooks/useInput";
@@ -13,6 +14,7 @@ import { useMutation, useQuery } from "react-apollo-hooks";
 import EditInput from "../../components/EditInput";
 import { ME } from "./Profile";
 import styles from "../../styles";
+import NavIcon from "../../components/NavIcon";
 
 const SEE_ME = gql`
   query seeUser($username: String!) {
@@ -27,16 +29,14 @@ const SEE_ME = gql`
 
 const EDIT_USER = gql`
   mutation editUser(
-    $username: String
     $email: String
     $firstName: String
     $lastName: String
     $bio: String
   ) {
     editUser(
-      username: $username
       email: $email
-      fistName: $firstName
+      firstName: $firstName
       lastName: $lastName
       bio: $bio
     ) {
@@ -63,39 +63,33 @@ const EditImage = styled.Text`
   font-size: 15px;
 `;
 
+const Button = styled.TouchableOpacity`
+  padding: 15px;
+  align-items: flex-end;
+`;
+
+const OK = styled.Text``;
+
 export default ({ navigation }) => {
   const fNameInput = useInput("");
   const lNameInput = useInput("");
   const emailInput = useInput("");
-  const usernameInput = useInput("");
   const bioInput = useInput("");
   const [loading, setLoading] = useState(false);
   const { data } = useQuery(ME);
   const { data: me } = useQuery(SEE_ME, {
     variables: { username: data.me.username }
   });
-  console.log(me);
   const [editUserMutation] = useMutation(EDIT_USER, {
     variables: {
-      username: usernameInput.value,
       email: emailInput.value,
       firstName: fNameInput.value,
       lastName: lNameInput.value,
-      bio: bioInput.value
+      bio: bioInput.value,
+      fullName: `${fNameInput.value} ${lNameInput.value}`
     }
   });
   const handleEdit = async () => {
-    const { value: email } = emailInput;
-    const { value: fName } = fNameInput;
-    const { value: lName } = lNameInput;
-    const { value: username } = usernameInput;
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailRegex.test(email)) {
-      return Alert.alert("Fill out according to email form!");
-    }
-    if (fName === "" || lName === "" || username == "") {
-      return Alert.alert("사용자 이름을 입력해야합니다");
-    }
     try {
       setLoading(true);
       const {
@@ -110,7 +104,6 @@ export default ({ navigation }) => {
       setLoading(false);
     }
   };
-  console.log(me.seeUser);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
@@ -144,13 +137,6 @@ export default ({ navigation }) => {
           autoCorrect={false}
           defaultValue={me.seeUser.email}
         />
-        <Type>Username</Type>
-        <EditInput
-          {...usernameInput}
-          onSubmitEditing={handleEdit}
-          autoCorrect={false}
-          defaultValue={data.me.username}
-        />
         <Type>Bio</Type>
         <EditInput
           {...bioInput}
@@ -158,6 +144,13 @@ export default ({ navigation }) => {
           autoCorrect={false}
           defaultValue={data.me.bio}
         />
+        <Button onPress={handleEdit}>
+          {loading ? (
+            <ActivityIndicator color={styles.blueColor} />
+          ) : (
+            <NavIcon name={"check"} color={styles.blueColor} />
+          )}
+        </Button>
       </View>
     </TouchableWithoutFeedback>
   );
