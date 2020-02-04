@@ -16,17 +16,6 @@ import { ME } from "./Profile";
 import styles from "../../styles";
 import NavIcon from "../../components/NavIcon";
 
-const SEE_ME = gql`
-  query seeUser($username: String!) {
-    seeUser(username: $username) {
-      email
-      firstName
-      lastName
-      fullName
-    }
-  }
-`;
-
 const EDIT_USER = gql`
   mutation editUser(
     $email: String
@@ -77,9 +66,6 @@ export default ({ navigation }) => {
   const bioInput = useInput("");
   const [loading, setLoading] = useState(false);
   const { data } = useQuery(ME);
-  const { data: me } = useQuery(SEE_ME, {
-    variables: { username: data.me.username }
-  });
   const [editUserMutation] = useMutation(EDIT_USER, {
     variables: {
       email: emailInput.value,
@@ -104,6 +90,7 @@ export default ({ navigation }) => {
       setLoading(false);
     }
   };
+  console.log(data.me)
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
@@ -111,9 +98,7 @@ export default ({ navigation }) => {
           style={{ width: 100, height: 100, marginTop: 20, borderRadius: 50 }}
           source={{ uri: data.me.avatar }}
         />
-        <TouchableOpacity
-          onPress={() => navigation.navigate("PhotoNavigation")}
-        >
+        <TouchableOpacity>
           <EditImage>프로필 사진 변경</EditImage>
         </TouchableOpacity>
         <Type>First Name</Type>
@@ -121,21 +106,21 @@ export default ({ navigation }) => {
           {...fNameInput}
           onSubmitEditing={handleEdit}
           autoCapitalize="words"
-          defaultValue={me.seeUser.firstName}
+          defaultValue={data.me.firstName}
         />
         <Type>Last Name</Type>
         <EditInput
           {...lNameInput}
           onSubmitEditing={handleEdit}
           autoCapitalize="words"
-          defaultValue={me.seeUser.lastName}
+          defaultValue={data.me.lastName}
         />
         <Type>이메일 주소</Type>
         <EditInput
           {...emailInput}
           onSubmitEditing={handleEdit}
           autoCorrect={false}
-          defaultValue={me.seeUser.email}
+          defaultValue={data.me.email}
         />
         <Type>Bio</Type>
         <EditInput
