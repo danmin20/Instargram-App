@@ -1,22 +1,19 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import Signup from "../screens/Auth/Signup";
-import Confirm from "../screens/Auth/Confirm";
-import Login from "../screens/Auth/Login";
-import AuthHome from "../screens/Auth/AuthHome";
+import { Signup, AuthHome, Confirm, Login } from "../screens/Auth";
 
 const AuthNavigaion = createStackNavigator(
   {
     AuthHome,
     Signup,
     Login,
-    Confirm
+    Confirm,
   },
   {
     navigationOptions: {
-      cardStyle: { backgroundColor: "white" }
+      cardStyle: { backgroundColor: "white" },
     },
-    headerMode: "none"
+    headerMode: "none",
   }
 );
 
