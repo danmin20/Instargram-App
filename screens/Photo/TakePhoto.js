@@ -9,29 +9,11 @@ import constants from "../../constants";
 import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
 import styles from "../../styles";
 
-const View = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-const Button = styled.View`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  border: 15px solid ${styles.lightGreyColor};
-`;
-const Buttons = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 export default ({ navigation }) => {
   const cameraRef = useRef();
-  const [canTakePhoto, setCanTakePhoto] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [hasPermission, setHasPermission] = useState(false);
-  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
-  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+
+  const [canTakePhoto, setCanTakePhoto] = useState(true);
   const takePhoto = async () => {
     if (!canTakePhoto) {
       return;
@@ -39,7 +21,7 @@ export default ({ navigation }) => {
     try {
       setCanTakePhoto(false);
       const { uri } = await cameraRef.current.takePictureAsync({
-        quality: 1
+        quality: 1,
       });
       const asset = await MediaLibrary.createAssetAsync(uri);
       navigation.navigate("UploadPhoto", { photo: asset });
@@ -48,6 +30,8 @@ export default ({ navigation }) => {
       setCanTakePhoto(true);
     }
   };
+
+  const [hasPermission, setHasPermission] = useState(false);
   const askPermission = async () => {
     try {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -61,6 +45,8 @@ export default ({ navigation }) => {
       setLoading(false);
     }
   };
+
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const toggleType = () => {
     if (cameraType === Camera.Constants.Type.front) {
       setCameraType(Camera.Constants.Type.back);
@@ -68,6 +54,8 @@ export default ({ navigation }) => {
       setCameraType(Camera.Constants.Type.front);
     }
   };
+
+  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
   const toggleFlash = () => {
     if (flashMode === Camera.Constants.FlashMode.off) {
       setFlashMode(Camera.Constants.FlashMode.on);
@@ -75,9 +63,11 @@ export default ({ navigation }) => {
       setFlashMode(Camera.Constants.FlashMode.off);
     }
   };
+
   useEffect(() => {
     askPermission();
   }, []);
+
   return (
     <View>
       {loading ? (
@@ -91,7 +81,7 @@ export default ({ navigation }) => {
               justifyContent: "flex-end",
               padding: 10,
               width: constants.width,
-              height: constants.width
+              height: constants.width,
             }}
           >
             <Buttons>
@@ -117,3 +107,19 @@ export default ({ navigation }) => {
     </View>
   );
 };
+
+const View = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+const Button = styled.View`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  border: 15px solid ${styles.lightGreyColor};
+`;
+const Buttons = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;

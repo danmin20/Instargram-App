@@ -13,7 +13,6 @@ import NavIcon from "../components/NavIcon";
 import styled from "styled-components";
 import UserDetail from "../screens/Tab/UserDetail";
 import styles from "../styles";
-import UserProfile from "../components/UserProfile";
 import EditProfile from "../screens/Tab/EditProfile";
 
 const Icon = styled.View`
@@ -26,35 +25,35 @@ const stackFactory = (initialRoute, customConfig) =>
       initialRoute: {
         screen: initialRoute,
         navigationOptions: {
-          ...customConfig
-        }
+          ...customConfig,
+        },
       },
       Detail: {
         screen: Detail,
         navigationOptions: {
           headerTitle: () => {
             "none";
-          }
-        }
+          },
+        },
       },
       UserDetail: {
         screen: UserDetail,
         navigationOptions: ({ navigation }) => ({
-          title: navigation.getParam("username")
-        })
+          title: navigation.getParam("username"),
+        }),
       },
       EditProfile: {
         screen: EditProfile,
         navigationOptions: {
-          title: "프로필 수정"
-        }
-      }
+          title: "프로필 수정",
+        },
+      },
     },
     {
       defaultNavigationOptions: {
         headerBackTitle: null,
-        cardStyle: { backgroundColor: "white" }
-      }
+        cardStyle: { backgroundColor: "white" },
+      },
     }
   );
 
@@ -75,57 +74,57 @@ export default createBottomTabNavigator(
             resizeMode="contain"
             source={require("../assets/logo.png")}
           />
-        )
+        ),
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon name={focused ? "home" : "home-outline"} />
-        )
-      }
+        ),
+      },
     },
     Search: {
       screen: stackFactory(Search),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon name={focused ? "magnify-close" : "magnify"} />
-        )
-      }
+        ),
+      },
     },
     Add: {
       screen: View,
       navigationOptions: {
         tabBarOnPress: ({ navigation }) =>
           navigation.navigate("PhotoNavigation"),
-        tabBarIcon: <NavIcon name="plus-box-outline" />
-      }
+        tabBarIcon: <NavIcon name="plus-box-outline" />,
+      },
     },
     Notifications: {
       screen: stackFactory(Notifications, {
         title: "Notifications",
-        headerTitleAlign: "center"
+        headerTitleAlign: "center",
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon name={focused ? "heart" : "heart-outline"} />
-        )
-      }
+        ),
+      },
     },
     Profile: {
       screen: stackFactory(Profile, {
         title: "Profile",
-        headerTitleAlign: "left"
+        headerTitleAlign: "left",
       }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <NavIcon name={focused ? "account" : "account-outline"} />
-        )
-      }
-    }
+        ),
+      },
+    },
   },
   {
     tabBarOptions: {
       showLabel: false,
-      style: { backgroundColor: styles.greyColor }
-    }
+      style: { backgroundColor: styles.greyColor },
+    },
   }
 );
