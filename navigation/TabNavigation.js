@@ -1,19 +1,20 @@
 import React from "react";
 import { Image } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import Home from "../screens/Tab/Home";
-import Search from "../screens/Tab/Search";
-import Notifications from "../screens/Tab/Notifications";
-import Profile from "../screens/Tab/Profile";
-import Detail from "../screens/Tab/Detail";
 import { View } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
 import styled from "styled-components";
-import UserDetail from "../screens/Tab/UserDetail";
-import styles from "../styles";
-import EditProfile from "../screens/Tab/EditProfile";
+import {
+  Search,
+  Detail,
+  EditProfile,
+  Home,
+  Notifications,
+  Profile,
+  UserDetail,
+} from "../screens/Tab";
 
 const Icon = styled.View`
   margin-left: 20px;
